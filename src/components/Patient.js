@@ -1,5 +1,4 @@
 import React, {Component} from "react"
-// import axios from 'axios'
 
 class Patient extends Component {
     constructor(props) {
@@ -9,27 +8,14 @@ class Patient extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     this.setState({loading: true})
-    //     axios.get('http://localhost:3000/api/patients')
-    //     .then(response => {
-    //         console.log('Worked', response.data)
-    //         this.setState({
-    //             loading: false,
-    //             patients: response.data
-    //         })
-    //     })
-    //     .catch(error => {
-    //         console.log(error)
-    //     })
-    // }    
-
     componentDidMount() {
         fetch("http://localhost:3000/api/patients")
             .then(response => response.json())
             .then(data => {
                 this.setState({ allPatients : data })
-            }) 
+            }).catch(error => {
+                console.log(error)
+            })
     }
 
     render() {
@@ -37,8 +23,8 @@ class Patient extends Component {
 
         return(
             <div>
-                {allPatients.map((patient) => (
-                    <p>{patient.name}</p>
+                {allPatients.map((patient, id) => (
+                    <p key={id}>{patient.name}</p>
                 ))}
             </div>
         )
