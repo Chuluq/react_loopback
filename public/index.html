@@ -1,21 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <title>React App</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <title>React App</title>
+        <!-- Required meta tags -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/vendor/mdi/css/materialdesignicons.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="dist/css/custom.css"></li>
+    	<title>Patient</title>
+  	
   </head>
   <body>
-    <div id="root"></div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-      $(document).ready(function(){
-        $('.sidenav').sidenav();
-      });
-    </script>
+      <body>
+          <!--Container-->
+          <div class="container-fluid d-flex p-0">
+              <!--Sidebar-->
+               <nav class="sidebar">
+                  <ul class="nav">
+                      <li class="nav-item profile py-4 mb-1">
+                          <a href="#" class="nav-link text-white">
+                              <div class="media">     
+                                  <img src="dist/img/avatars/avatar-2.png" class="img-fluid rounded-circle align-self-center mr-3" alt="..." width="45" height="auto" id="photo-profile">
+                                  <div class="media-body" style="max-width: 130px;">
+                                      <p class="mb-1 font-weight-medium">user@login</p>
+                                      <p class="mb-0" style="font-size: 12px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">user@login.com</p>
+                                  </div>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="nav-item nav-title">
+                          Account
+                      </li>
+                      <li class="nav-item" id="settings">
+                          <a href="profile-setting.html" class="nav-link ">
+                              <i class="menu-icon mdi loading"></i>
+                              <span class="loading"></span>
+                          </a>
+                      </li>
+                      <li class="nav-item" id="administartion">
+                          <a class="nav-link" data-toggle="collapse" href="#admin-menu" aria-expanded="false" aria-controls="admin-menu">
+                              <i class="menu-icon mdi loading"></i>
+                              <span class="loading"></span>
+                              <i class="menu-arrow"></i>
+                          </a>
+                          <div class="collapse" id="admin-menu">
+                              <ul class="nav flex-column sub-menu">
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="menu-management.html">Menu Management</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="user-management.html">User Management</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="role-management.html">Role Management</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
+                      <hr width="85%">
+                      <li class="nav-item nav-title">
+                          Navigation
+                      </li>
+                      <li class="nav-item" id="dashboard">
+                          <a class="nav-link" href="#">
+                              <i class="menu-icon mdi loading"></i>
+                              <span class="loading"></span>
+                          </a>
+                      </li>
+                      <li class="nav-item" id="patient">
+                          <a class="nav-link" href="patient.html">
+                              <i class="menu-icon mdi loading"></i>
+                              <span class="loading"></span>
+                          </a>
+                      </li>
+                      <li class="nav-item" id="practitioner">
+                          <a class="nav-link" href="practitioner.html">
+                              <i class="menu-icon mdi loading"></i>
+                              <span class="loading"></span>
+                          </a>
+                      </li>
+                      <hr width="85%">
+                  </ul>
+              </nav>
+              <!--Sidebar-end-->
+
+                        <!--Main-panel-->
+                        <div class="main-panel p-5">
+                            <!--Modal for delete opex-->
+                            <div class="modal fade" id="delete-patient" tabindex="-1" role="dialog" aria-labelledby="delete-patient" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="create-group-title">Delete Patient</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="font-size: 14px;">Are you sure want to delete this Patient?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" class="btn btn-danger d-xl-inline-block btn-sm mr-3" id="delete">Delete</a>
+                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Modal for delete end-->
+            
+                            <!--Notification Message-->
+                            <div class="notification">
+                                <div class="progress-bar">
+                                    <div id="progress-fill">  
+                                    </div>
+                                </div>
+                                <span class="float-right mr-2">
+                                    <i class="mdi mdi-close"></i>
+                                </span>
+                                <div class="notification-message">
+                                    
+                                </div>
+                            </div>
+                             <!--Notification Message end-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card" style="min-height: calc(100vh - 110px);">
+                                        <div class="card-body">
+                                            <div class="row mb-3">
+                                                <div class="col-md-12 px-4">
+                                                    <h2 class="card-title mb-4">Patient List
+                                                        <span class="float-right">
+                                                            <a class="btn btn-sm btn-success" href="add-patient.html">Add New Patient</a>
+                                                        </span>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 px-4"> 
+                                                    <table id="example" class="table table-hover dt-responsive nowrap" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="name-width">Name</th>
+                                                                <th>Gender</th>
+                                                                <th>Bith Date</th>
+                                                                <th class="address-width">Address</th>
+                                                                <th>Phone</th>
+                                                                <th>Options</th>  
+                                                            </tr>
+                                                            
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="name-width">Ir. Roberto Firminho Sujadi</td>
+                                                                <td>Male</td>
+                                                                <td>1990-03-03</td>
+                                                                <td class="address-width">Jl. Kusumanegara No.91, Umbulharjo, Kota Yogyakarta</td>
+                                                                <td>087741434432</td>
+                                                                <td class="text-center">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </a>
+                                                                    <div class=" dropright dropdown-menu">
+                                                                        <a class="dropdown-item"  href="patient-view.html">
+                                                                            <i class="mdi mdi-eye mr-2"></i>Views</a>
+                                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="add-patient.html">
+                                                                            <i class="mdi mdi-pencil mr-2"></i>Edit</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" data-toggle="modal" data-target="#delete-patient" href="#">
+                                                                            <i class="mdi mdi-delete mr-2"></i>Delete</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="name-width">Damian Lilliard</td>
+                                                                <td>Male</td>
+                                                                <td>1990-03-03</td>
+                                                                <td class="address-width">Jl. Cantel 352 Baciro Gondokusuman Yogddyakarta</td>
+                                                                <td>087741434432</td>
+                                                                <td class="text-center">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </a>
+                                                                    <div class=" dropright dropdown-menu">
+                                                                        <a class="dropdown-item"  href="patient-view.html">
+                                                                            <i class="mdi mdi-eye mr-2"></i>Views</a>
+                                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="add-patient.html">
+                                                                            <i class="mdi mdi-pencil mr-2"></i>Edit</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" data-toggle="modal" data-target="#delete-patient" href="#">
+                                                                            <i class="mdi mdi-delete mr-2"></i>Delete</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="name-width">Damian Lilliard</td>
+                                                                <td>Male</td>
+                                                                <td>1990-03-03</td>
+                                                                <td class="address-width">Yogyakarta</td>
+                                                                <td>087741434432</td>
+                                                                <td class="text-center">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </a>
+                                                                    <div class=" dropright dropdown-menu">
+                                                                        <a class="dropdown-item"  href="patient-view.html">
+                                                                            <i class="mdi mdi-eye mr-2"></i>Views</a>
+                                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="add-patient.html">
+                                                                            <i class="mdi mdi-pencil mr-2"></i>Edit</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" data-toggle="modal" data-target="#delete-patient" href="#">
+                                                                            <i class="mdi mdi-delete mr-2"></i>Delete</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="name-width">Damian Lilliard</td>
+                                                                <td>Male</td>
+                                                                <td>1990-03-03</td>
+                                                                <td class="address-width">Yogyakarta</td>
+                                                                <td>087741434432</td>
+                                                                <td class="text-center">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </a>
+                                                                    <div class=" dropright dropdown-menu">
+                                                                        <a class="dropdown-item"  href="patient-view.html">
+                                                                            <i class="mdi mdi-eye mr-2"></i>Views</a>
+                                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="add-patient.html">
+                                                                            <i class="mdi mdi-pencil mr-2"></i>Edit</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" data-toggle="modal" data-target="#delete-patient" href="#">
+                                                                            <i class="mdi mdi-delete mr-2"></i>Delete</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="name-width">Damian Lilliard Leonard</td>
+                                                                <td>Male</td>
+                                                                <td>1990-03-03</td>
+                                                                <td class="address-width">Jl. Cantel 352 Baciro Gondokusuman Yogddyakarta</td>
+                                                                <td>087741434432</td>
+                                                                <td class="text-center">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </a>
+                                                                    <div class=" dropright dropdown-menu">
+                                                                        <a class="dropdown-item"  href="patient-view.html">
+                                                                            <i class="mdi mdi-eye mr-2"></i>Views</a>
+                                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="add-patient.html">
+                                                                            <i class="mdi mdi-pencil mr-2"></i>Edit</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" data-toggle="modal" data-target="#delete-patient" href="#">
+                                                                            <i class="mdi mdi-delete mr-2"></i>Delete</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="name-width">Damian Lilliard</td>
+                                                                <td>Male</td>
+                                                                <td>1990-03-03</td>
+                                                                <td class="address-width">Yogyakarta</td>
+                                                                <td>087741434432</td>
+                                                                <td class="text-center">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </a>
+                                                                    <div class=" dropright dropdown-menu">
+                                                                        <a class="dropdown-item"  href="patient-view.html">
+                                                                            <i class="mdi mdi-eye mr-2"></i>Views</a>
+                                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="add-patient.html">
+                                                                            <i class="mdi mdi-pencil mr-2"></i>Edit</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" data-toggle="modal" data-target="#delete-patient" href="#">
+                                                                            <i class="mdi mdi-delete mr-2"></i>Delete</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="name-width">Damian Lilliard</td>
+                                                                <td>Male</td>
+                                                                <td>1990-03-03</td>
+                                                                <td class="address-width">Yogyakarta</td>
+                                                                <td>087741434432</td>
+                                                                <td class="text-center">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </a>
+                                                                    <div class=" dropright dropdown-menu">
+                                                                        <a class="dropdown-item"  href="patient-view.html">
+                                                                            <i class="mdi mdi-eye mr-2"></i>Views</a>
+                                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="add-patient.html">
+                                                                            <i class="mdi mdi-pencil mr-2"></i>Edit</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" data-toggle="modal" data-target="#delete-patient" href="#">
+                                                                            <i class="mdi mdi-delete mr-2"></i>Delete</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>       
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Main-panel-end-->
+
+              
+          </div> 
+          <!--Container-end-->
+              
+    <div id="root"></div>
   </body>
 </html>
