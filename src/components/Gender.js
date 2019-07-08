@@ -13,7 +13,7 @@ class Gender extends Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ gender: data })
-        console.log(data)
+        // console.log(data)
       }).catch(err => {
         console.log(err)
       })

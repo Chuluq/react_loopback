@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 
 class Id extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props);
+
     this.state = {
         id: []
     }
@@ -13,7 +14,7 @@ class Id extends Component {
         .then(response => response.json())
         .then(data => {
             this.setState({ id : data })
-            console.log(data)
+            // console.log(data)
         }).catch(error => {
             console.log(error)
         })
@@ -34,12 +35,6 @@ class Id extends Component {
           <label>Identifier No.</label>
           {id.map((data, id) => (
             <p key={id}>{data.idNumber}</p>
-          ))}
-        </div>
-        <div>
-          <label>Identifier Periode</label>
-          {id.map((data, id) => (
-            <p key={id}>{data.idPeriod}</p>
           ))}
         </div>
       </div>
