@@ -1,43 +1,50 @@
-import React, {Component} from "react"
+import React, {Component} from "react";
+import axios from "axios";
+import AddComponent from "./AddComponent";
 
-class AddPatient extends Component {
-    constructor() {
-        super()
-        this.state = {
-            value: ''
-        }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+class AddPatient extends Component {s
+  constructor() {
+    super();
+    this.state = {
+      nameUse: "",
+      prefix: "",
+      familyName: "",
+      givenName: "",
+      sufix: "",
+      fullName: ""
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-    handleChange(event) {
-        this.setState({value: event.target.value})
-    }
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    })
+  }
 
-    handleSubmit(event) {
-        event.preventDefault()
-    }
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state);
+    
+    axios.post('http://localhost:3000/api/names', this.state)
+      .then(response => {
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
+  }
 
-    render() {
-        return(
-            <div>
-                <h2>Add New Patient</h2>
-                <div>
-                    <form onSubmit={this.handleSubmit}>
-                        Name: 
-                        <input 
-                            type="text" 
-                            name="name"
-                            value={this.state.value}
-                            onChange={this.handleChange} 
-                        />
-                        <br /><br />
-                        <input type="submit" value="submit" />
-                    </form>
-                </div>
-            </div>
-        )
-    }
+  render() {
+    return(
+      <AddComponent 
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+        data={this.state}
+      />
+    )
+  }
 }
 
-export default AddPatient
+export default AddPatient;
